@@ -14,12 +14,12 @@ A hotel connects its LINE, WhatsApp, Messenger and Instagram accounts, and an AI
 
 ```mermaid
 flowchart LR
-    guest["Guests<br/>LINE · WhatsApp · Messenger<br/>Instagram · phone"] --> api["FastAPI backend<br/>+ AI agent"]
-    staff["Front-desk staff"] --> admin["Admin panel<br/>React"] --> api
-    api --> db[("Postgres + pgvector<br/>Supabase")]
-    api --> llm["LLMs<br/>OpenAI · Anthropic · Gemini"]
+    api["FastAPI backend<br/>+ AI agent"] --> tunnel["Cloudflare<br/>Tunnel"] --> conn["Read-only<br/>connector on<br/>hotel PC"] --> sql[("Legacy PMS<br/>SQL Server<br/>480+ tables")]
+    guest["Guests<br/>LINE, WhatsApp,<br/>Messenger,<br/>Instagram, phone"] --> api
+    staff["Front-desk<br/>staff"] --> admin["Admin panel<br/>React"] --> api
     api --> pms["PMS APIs<br/>2 systems"]
-    api --> tunnel["Cloudflare Tunnel"] --> conn["Read-only connector<br/>on the hotel's PC"] --> sql[("Legacy PMS<br/>SQL Server, 480+ tables")]
+    api --> llm["LLMs<br/>OpenAI, Anthropic,<br/>Gemini"]
+    api --> db[("Postgres<br/>+ pgvector<br/>Supabase")]
 ```
 
 What's in it:
